@@ -323,9 +323,7 @@ __metadata:
     "@types/yargs": ^17.0.10
     "@typescript-eslint/eslint-plugin": ^5.27.1
     "@typescript-eslint/parser": ^5.27.1
-    "@withgraphite/graphite-cli-routes": ^0.31.0
     "@withgraphite/retype": ^0.3.11
-    "@withgraphite/retyped-routes": ^0.3.1
     chai: ^4.3.6
     chai-as-promised: ^7.1.1
     chalk: ^4.1.2
@@ -671,13 +669,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/isomorphic-fetch@npm:^0.0.35":
-  version: 0.0.35
-  resolution: "@types/isomorphic-fetch@npm:0.0.35"
-  checksum: ae57d2605d24f799fd3d838d59986e88e8a345c65c1751122f6b39b62de504e0a61cd62f04e6e157406c84cba60a6a39eb6d5d2c0a9e9ac153759d5354b5e7e9
-  languageName: node
-  linkType: hard
-
 "@types/json-schema@npm:^7.0.9":
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
@@ -719,13 +710,6 @@ __metadata:
   version: 17.0.45
   resolution: "@types/node@npm:17.0.45"
   checksum: aa04366b9103b7d6cfd6b2ef64182e0eaa7d4462c3f817618486ea0422984c51fc69fd0d436eae6c9e696ddfdbec9ccaa27a917f7c2e8c75c5d57827fe3d95e8
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^14.14.37":
-  version: 14.18.21
-  resolution: "@types/node@npm:14.18.21"
-  checksum: 4ed35b76609647a4e36a194702e31cdda9ed42174ddaf7937bc5498984e98a99e8a42ea895ea17dd9c5ec18080112c29ab670c34f90eb9f7a4703b85b31e34fa
   languageName: node
   linkType: hard
 
@@ -1044,51 +1028,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@withgraphite/graphite-cli-routes@npm:^0.31.0":
-  version: 0.31.0
-  resolution: "@withgraphite/graphite-cli-routes@npm:0.31.0"
-  dependencies:
-    "@withgraphite/retype": ^0.3.15
-    "@withgraphite/retyped-routes": ^0.3.7
-  checksum: d8d83c2066a795a371d2235b9305b81cb1a71f66b76582f66512c9a5993aa35058d59ad2c5d06f3417e6da5e7be381306c20cd51b4f0f79a1a989789f652d36d
-  languageName: node
-  linkType: hard
-
 "@withgraphite/retype@npm:^0.3.11":
   version: 0.3.11
   resolution: "@withgraphite/retype@npm:0.3.11"
   checksum: c8c1123bc90576a0ca0940bfef8a9efb43149ccab0668a3621fc894f3afaf558aa13dd05f447722db35d8fda0d14adf8fa7224d262ec712d6db51553b893e3f4
-  languageName: node
-  linkType: hard
-
-"@withgraphite/retype@npm:^0.3.15":
-  version: 0.3.15
-  resolution: "@withgraphite/retype@npm:0.3.15"
-  checksum: 439c0c69c95ed382ae54273c31e653e913e17d4408d04c5dfe509b2d1de4283177bbd738ab1ba907746ddfa7fb1441c7cc2e87a4500d25b005e42a50e4b6ebdd
-  languageName: node
-  linkType: hard
-
-"@withgraphite/retyped-routes@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@withgraphite/retyped-routes@npm:0.3.1"
-  dependencies:
-    "@types/isomorphic-fetch": ^0.0.35
-    "@types/node": ^14.14.37
-    "@withgraphite/retype": ^0.3.11
-    isomorphic-fetch: ^3.0.0
-    path-to-regexp: ^6.1.0
-  checksum: 9ae24ab1f4752718c83d8c568abc919e929586f8fe2810b8be1db1d34c73ef0ec797b6e955b13f4375292ca0e7b4cba5466679612eb7f48b725d357e677e9e62
-  languageName: node
-  linkType: hard
-
-"@withgraphite/retyped-routes@npm:^0.3.7":
-  version: 0.3.7
-  resolution: "@withgraphite/retyped-routes@npm:0.3.7"
-  dependencies:
-    "@withgraphite/retype": ^0.3.15
-    isomorphic-fetch: ^3.0.0
-    path-to-regexp: ^6.1.0
-  checksum: f73844e11ea18f4a70357aff04ff45a97c407a6d01ed51ccb1221009b888ef0a1b5c35f9961df9895894bd04d8875f1b8fdf0f0479b1e702cef326d2955c5c43
   languageName: node
   linkType: hard
 
@@ -3570,16 +3513,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isomorphic-fetch@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "isomorphic-fetch@npm:3.0.0"
-  dependencies:
-    node-fetch: ^2.6.1
-    whatwg-fetch: ^3.4.1
-  checksum: e5ab79a56ce5af6ddd21265f59312ad9a4bc5a72cebc98b54797b42cb30441d5c5f8d17c5cd84a99e18101c8af6f90c081ecb8d12fd79e332be1778d58486d75
-  languageName: node
-  linkType: hard
-
 "istanbul-lib-coverage@npm:^3.0.0, istanbul-lib-coverage@npm:^3.2.0":
   version: 3.2.0
   resolution: "istanbul-lib-coverage@npm:3.2.0"
@@ -4250,20 +4183,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^2.6.1":
-  version: 2.6.7
-  resolution: "node-fetch@npm:2.6.7"
-  dependencies:
-    whatwg-url: ^5.0.0
-  peerDependencies:
-    encoding: ^0.1.0
-  peerDependenciesMeta:
-    encoding:
-      optional: true
-  checksum: 8d816ffd1ee22cab8301c7756ef04f3437f18dace86a1dae22cf81db8ef29c0bf6655f3215cb0cdb22b420b6fe141e64b26905e7f33f9377a7fa59135ea3e10b
-  languageName: node
-  linkType: hard
-
 "node-fetch@npm:^2.6.6":
   version: 2.6.9
   resolution: "node-fetch@npm:2.6.9"
@@ -4619,13 +4538,6 @@ __metadata:
   version: 1.0.7
   resolution: "path-parse@npm:1.0.7"
   checksum: 49abf3d81115642938a8700ec580da6e830dde670be21893c62f4e10bd7dd4c3742ddc603fe24f898cba7eb0c6bc1777f8d9ac14185d34540c6d4d80cd9cae8a
-  languageName: node
-  linkType: hard
-
-"path-to-regexp@npm:^6.1.0":
-  version: 6.2.1
-  resolution: "path-to-regexp@npm:6.2.1"
-  checksum: f0227af8284ea13300f4293ba111e3635142f976d4197f14d5ad1f124aebd9118783dd2e5f1fe16f7273743cc3dbeddfb7493f237bb27c10fdae07020cc9b698
   languageName: node
   linkType: hard
 
@@ -5946,13 +5858,6 @@ __metadata:
   version: 3.0.1
   resolution: "webidl-conversions@npm:3.0.1"
   checksum: c92a0a6ab95314bde9c32e1d0a6dfac83b578f8fa5f21e675bc2706ed6981bc26b7eb7e6a1fab158e5ce4adf9caa4a0aee49a52505d4d13c7be545f15021b17c
-  languageName: node
-  linkType: hard
-
-"whatwg-fetch@npm:^3.4.1":
-  version: 3.6.2
-  resolution: "whatwg-fetch@npm:3.6.2"
-  checksum: ee976b7249e7791edb0d0a62cd806b29006ad7ec3a3d89145921ad8c00a3a67e4be8f3fb3ec6bc7b58498724fd568d11aeeeea1f7827e7e1e5eae6c8a275afed
   languageName: node
   linkType: hard
 

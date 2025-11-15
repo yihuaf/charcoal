@@ -1,16 +1,12 @@
-import { API_ROUTES } from '@withgraphite/graphite-cli-routes';
-
-import t from '@withgraphite/retype';
+import { TPRInfoToUpsert } from '../types/pr_types';
 import { execFileSync } from 'child_process';
+
+export type { TPRInfoToUpsert };
 
 type TBranchNameWithPrNumber = {
   branchName: string;
   prNumber: number | undefined;
 };
-
-export type TPRInfoToUpsert = t.UnwrapSchemaMap<
-  typeof API_ROUTES.pullRequestInfo.response
->['prs'];
 
 export async function getPrInfoForBranches(
   branchNamesWithExistingPrInfo: TBranchNameWithPrNumber[]

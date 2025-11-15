@@ -1,20 +1,18 @@
-import { API_ROUTES } from '@withgraphite/graphite-cli-routes';
-import * as t from '@withgraphite/retype';
 import chalk from 'chalk';
 import { TContext } from '../../lib/context';
 import { ExitFailedError } from '../../lib/errors';
 import { Unpacked } from '../../lib/utils/ts_helpers';
 import { execFileSync } from 'child_process';
+import {
+  PRSubmissionInfo,
+  SubmittedPRResponse,
+} from '../../lib/types/pr_types';
 
-export type TPRSubmissionInfo = t.UnwrapSchemaMap<
-  typeof API_ROUTES.submitPullRequests.params
->['prs'];
+export type TPRSubmissionInfo = PRSubmissionInfo;
 
 type TSubmittedPRRequest = Unpacked<TPRSubmissionInfo>;
 
-type TSubmittedPRResponse = Unpacked<
-  t.UnwrapSchemaMap<typeof API_ROUTES.submitPullRequests.response>['prs']
->;
+type TSubmittedPRResponse = SubmittedPRResponse;
 
 type TSubmittedPR = {
   request: TSubmittedPRRequest;
