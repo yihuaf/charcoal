@@ -127,6 +127,7 @@ async function graphiteHelper(
     refreshPRInfoInBackground(context);
 
     if (
+      canonicalName !== 'init' &&
       canonicalName !== 'repo init' &&
       !context.repoConfig.graphiteInitialized()
     ) {
