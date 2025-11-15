@@ -16,6 +16,5 @@ export function showCommits(
       `--`,
     ],
     onError: 'throw',
-    resource: 'showCommits',
   });
 }

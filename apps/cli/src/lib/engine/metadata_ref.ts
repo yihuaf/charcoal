@@ -45,7 +45,6 @@ export function writeMetadataRef(
       cwd,
     },
     onError: 'throw',
-    resource: 'hashMetadataRef',
   });
   runGitCommand({
     args: [`update-ref`, `refs/branch-metadata/${branchName}`, metaSha],
@@ -54,7 +53,6 @@ export function writeMetadataRef(
       cwd,
     },
     onError: 'throw',
-    resource: 'writeMetadataRef',
   });
 }
 
@@ -67,7 +65,6 @@ export function readMetadataRef(branchName: string, cwd?: string): TMeta {
           cwd,
         },
         onError: 'ignore',
-        resource: 'readMetadataRef',
       })
     );
 
@@ -81,7 +78,6 @@ export function deleteMetadataRef(branchName: string): void {
   runGitCommand({
     args: [`update-ref`, `-d`, `refs/branch-metadata/${branchName}`],
     onError: 'throw',
-    resource: 'deleteMetadataRef',
   });
 }
 
@@ -94,7 +90,6 @@ export function getMetadataRefList(): Record<string, string> {
       `refs/branch-metadata/`,
     ],
     onError: 'throw',
-    resource: 'getMetadataRefList',
   })
     .map((line) => line.split(':'))
     .filter(

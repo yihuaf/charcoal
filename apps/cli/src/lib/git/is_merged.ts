@@ -27,14 +27,12 @@ export function isMerged({
           `_`,
         ],
         onError: 'ignore',
-        resource: 'mergeBaseCommitTree',
       });
 
       // Does a commit with these changes exist in trunk?
       const isMerged = runGitCommand({
         args: [`cherry`, trunkName, testCommit, currentBase],
         onError: 'ignore',
-        resource: 'isMerged',
       }).startsWith('-');
 
       // If so, move the base forward to nextCommit

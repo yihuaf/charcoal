@@ -8,13 +8,12 @@ import { graphite } from '../../lib/runner';
 const args = {} as const;
 
 export const command = 'log';
-export const canonical = 'internal-only log';
 export const description = false;
 export const builder = args;
 
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) => {
+  return graphite(argv, async (context) => {
     // Need to do this before checking if you need submit
     await context.engine.populateRemoteShas();
 

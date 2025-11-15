@@ -8,7 +8,6 @@ export function rebaseInProgress(options?: { cwd: string }): boolean {
       args: [`rev-parse`, `--git-dir`],
       options,
       onError: 'throw',
-      resource: 'rebaseInProgress',
     }),
     'rebase-merge'
   );

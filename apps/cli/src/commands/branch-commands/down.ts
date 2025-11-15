@@ -15,14 +15,12 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'down [steps]';
-export const canonical = 'branch down';
 export const aliases = ['d'];
 export const description = 'Switch to the parent of the current branch.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> =>
   graphite(
     argv,
-    canonical,
     async (context) =>
       await switchBranchAction(
         {

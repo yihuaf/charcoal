@@ -7,7 +7,6 @@ export function findRemoteBranch(remote: string): string | undefined {
     runGitCommandAndSplitLines({
       args: [`config`, `--get-regexp`, `remote$`, `^${remote}$`],
       onError: 'ignore',
-      resource: 'findRemoteBranch',
     })[0]
       // and retrieve branchName from `branch.<branchName>.remote`
       ?.split('.')[1] || undefined

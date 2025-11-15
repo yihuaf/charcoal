@@ -20,14 +20,13 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'init';
 export const aliases = ['i'];
-export const canonical = 'repo init';
 export const description =
   'Create or regenerate a `.graphite_repo_config` file.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> =>
   graphite(
     argv,
-    canonical,
     async (context) =>
-      await init({ trunk: argv.trunk, reset: argv.reset }, context)
+      await init({ trunk: argv.trunk, reset: argv.reset }, context),
+    true
   );

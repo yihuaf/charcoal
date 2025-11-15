@@ -11,7 +11,6 @@ export function getRepoRootPathPrecondition(): string {
   const repoRootPath = runGitCommand({
     args: [`rev-parse`, `--git-common-dir`],
     onError: 'ignore',
-    resource: 'getRepoRootPathPrecondition',
   });
 
   if (!repoRootPath) {
@@ -46,7 +45,6 @@ export function currentGitRepoPrecondition(): string {
   const repoRootPath = runGitCommand({
     args: [`rev-parse`, `--show-toplevel`],
     onError: 'ignore',
-    resource: 'currentGitRepoPrecondition',
   });
   if (!repoRootPath) {
     throw new PreconditionsFailedError('No .git repository found.');

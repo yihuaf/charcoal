@@ -41,13 +41,12 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'sync';
-export const canonical = 'sync';
 export const aliases = ['s'];
 export const description =
   'Pull the trunk branch from remote and delete any branches that have been merged. If trunk cannot be fast-forwarded to match remote, overwrites trunk with the remote version.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) => {
+  return graphite(argv, async (context) => {
     await syncAction(
       {
         pull: argv.pull,

@@ -43,12 +43,11 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const aliases = ['c'];
 export const command = 'create [name]';
-export const canonical = 'branch create';
 export const description =
   'Create a new branch stacked on top of the current branch and commit staged changes. If no branch name is specified but a commit message is passed, generate a branch name from the commit message.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) => {
+  return graphite(argv, async (context) => {
     await createBranchAction(
       {
         branchName: argv.name,

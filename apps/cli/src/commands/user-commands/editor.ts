@@ -20,10 +20,9 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const command = 'editor';
 export const description = 'The editor opened by Charcoal.';
-export const canonical = 'user editor';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphiteWithoutRepo(argv, canonical, async (context) => {
+  return graphiteWithoutRepo(argv, async (context) => {
     if (argv.set) {
       context.userConfig.update((data) => (data.editor = argv.set));
       context.splog.info(`Editor set to ${chalk.cyan(argv.set)}`);

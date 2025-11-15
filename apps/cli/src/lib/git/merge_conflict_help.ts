@@ -12,7 +12,6 @@ export function getUnmergedFiles(): string[] {
       `--diff-filter=U`,
     ],
     onError: 'throw',
-    resource: 'getUnmergedFiles',
   });
 }
 
@@ -20,7 +19,6 @@ export function getRebaseHead(): string | undefined {
   const gitDir = runGitCommand({
     args: [`rev-parse`, `--git-dir`],
     onError: 'throw',
-    resource: 'getRebaseHead',
   });
 
   const rebaseHeadPath = path.join(`${gitDir}`, `rebase-merge`, `head-name`);

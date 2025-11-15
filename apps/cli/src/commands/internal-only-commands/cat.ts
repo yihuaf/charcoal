@@ -17,13 +17,12 @@ const args = {
 } as const;
 
 export const command = 'cat [ref] [file]';
-export const canonical = 'internal-only cat';
 export const description = false;
 export const builder = args;
 
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) => {
+  return graphite(argv, async (context) => {
     context.splog.info(context.engine.getFileContents(argv.ref, argv.file));
   });
 };

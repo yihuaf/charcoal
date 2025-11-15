@@ -41,13 +41,12 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'amend';
-export const canonical = 'commit amend';
 export const aliases = ['a'];
 export const description =
   'Amend the most recent commit and restack upstack branches.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) =>
+  return graphite(argv, async (context) =>
     commitAmendAction(
       {
         message: argv.message,

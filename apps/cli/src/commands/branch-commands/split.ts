@@ -21,13 +21,12 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'split';
-export const canonical = 'branch split';
 export const aliases = ['sp'];
 export const description =
   'Split the current branch into multiple single-commit branches.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> =>
-  graphite(argv, canonical, async (context) =>
+  graphite(argv, async (context) =>
     splitCurrentBranch(
       {
         style: argv['by-hunk']

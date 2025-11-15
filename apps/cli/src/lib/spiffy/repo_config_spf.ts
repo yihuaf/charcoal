@@ -106,7 +106,6 @@ function inferRepoGitHubInfo(remote: string): {
   const url = runGitCommand({
     args: [`config`, `--get`, `remote.${remote}.url`],
     onError: 'ignore',
-    resource: 'inferRepoGitHubInfo',
   });
 
   const inferError = new ExitFailedError(

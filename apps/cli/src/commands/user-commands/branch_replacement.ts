@@ -27,12 +27,11 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'branch-replacement';
-export const canonical = 'user branch-replacement';
 export const description =
   'The character that will replace unsupported characters in generated branch names.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphiteWithoutRepo(argv, canonical, async (context) => {
+  return graphiteWithoutRepo(argv, async (context) => {
     if (argv['set-underscore']) {
       context.userConfig.update((data) => (data.branchReplacement = '_'));
       context.splog.info(`Set underscore (_) as the replacement character`);

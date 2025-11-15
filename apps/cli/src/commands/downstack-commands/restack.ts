@@ -8,12 +8,11 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const aliases = ['r'];
 export const command = 'restack';
-export const canonical = 'downstack restack';
 export const description =
   'From trunk to the current branch, ensure each is based on its parent, rebasing if necessary.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> =>
-  graphite(argv, canonical, async (context) => {
+  graphite(argv, async (context) => {
     context.splog.tip(
       [
         `You are restacking with downstack scope.`,

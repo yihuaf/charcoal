@@ -12,6 +12,5 @@ export function setRemoteTracking({
   runGitCommand({
     args: [`update-ref`, `refs/remotes/${remote}/${branchName}`, sha],
     onError: 'throw',
-    resource: 'setRemoteTracking',
   });
 }

@@ -23,13 +23,12 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'test <command>';
-export const canonical = 'stack test';
 export const aliases = ['t'];
 export const description =
   'Run the provided command on each branch in the current stack and aggregate the results.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> =>
-  graphite(argv, canonical, async (context) =>
+  graphite(argv, async (context) =>
     testStack(
       { scope: SCOPE.STACK, includeTrunk: argv.trunk, command: argv.command },
       context

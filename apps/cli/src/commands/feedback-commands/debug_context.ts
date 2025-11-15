@@ -23,13 +23,12 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'debug-context';
-export const canonical = 'feedback debug-context';
 export const description =
   'Print a debug summary of your repo. Useful for creating bug report details.';
 export const builder = args;
 
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) => {
+  return graphite(argv, async (context) => {
     if (argv['recreate-from-file']) {
       const dir = recreateState(
         fs.readFileSync(argv['recreate-from-file']).toString(),

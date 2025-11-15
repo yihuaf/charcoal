@@ -6,10 +6,9 @@ import { argsT } from '../shared-commands/submit';
 export { aliases, args, builder, command } from '../shared-commands/submit';
 export const description =
   'Idempotently force push the current branch and its descendants to GitHub, creating or updating pull requests as necessary.';
-export const canonical = 'upstack submit';
 
 export const handler = async (argv: argsT): Promise<void> => {
-  await graphite(argv, canonical, async (context) => {
+  await graphite(argv, async (context) => {
     context.splog.tip(
       [
         `You are submitting with upstack scope.`,

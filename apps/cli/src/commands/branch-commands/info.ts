@@ -28,12 +28,11 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'info';
-export const canonical = 'branch info';
 export const aliases = ['i'];
 export const description = 'Display information about the current branch.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) => {
+  return graphite(argv, async (context) => {
     await showBranchInfo(
       context.engine.currentBranchPrecondition,
       { patch: argv.patch, diff: argv.diff, body: argv.body },

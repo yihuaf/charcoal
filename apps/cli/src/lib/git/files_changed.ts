@@ -8,7 +8,6 @@ export function getFilesChanged(from: string, to: string): TChangedFile[] {
   const result = runGitCommand({
     args: [`diff`, '-z', '--name-status', from, to],
     onError: 'ignore',
-    resource: 'getFilesChanged',
   });
 
   const files: TChangedFile[] = [];

@@ -20,12 +20,11 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'branch-date';
-export const canonical = 'user branch-date';
 export const description =
   'Toggle prepending date to auto-generated branch names on branch creation.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphiteWithoutRepo(argv, canonical, async (context) => {
+  return graphiteWithoutRepo(argv, async (context) => {
     if (argv.enable) {
       context.userConfig.update((data) => (data.branchDate = true));
       context.splog.info(`Enabled date`);

@@ -16,12 +16,11 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'test <command>';
-export const canonical = 'upstack test';
 export const aliases = ['t'];
 export const description =
   'For each of the current branch and its descendants, run the provided command and aggregate the results.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> =>
-  graphite(argv, canonical, async (context) =>
+  graphite(argv, async (context) =>
     testStack({ scope: SCOPE.UPSTACK, command: argv.command }, context)
   );

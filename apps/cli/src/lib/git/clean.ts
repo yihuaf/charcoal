@@ -5,6 +5,5 @@ export function clean(): void {
     args: ['clean', '--force'],
     options: { stdio: 'ignore' },
     onError: 'throw',
-    resource: 'clean',
   });
 }

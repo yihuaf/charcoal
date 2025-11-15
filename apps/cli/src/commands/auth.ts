@@ -16,12 +16,11 @@ export const command = 'auth';
 export const description =
   'Authenticate with the GitHub CLI to create and manage PRs in GitHub from Charcoal.';
 export const builder = args;
-export const canonical = 'auth';
 
 const MIN_GH_VERSION = '2.0.0';
 
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphiteWithoutRepo(argv, canonical, async (context) => {
+  return graphiteWithoutRepo(argv, async (context) => {
     const ghVersion = getGhVersion();
 
     if (!ghVersion || ghVersion < MIN_GH_VERSION) {

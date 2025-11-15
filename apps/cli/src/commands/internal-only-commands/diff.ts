@@ -16,13 +16,12 @@ const args = {
 } as const;
 
 export const command = 'diff [target]';
-export const canonical = 'internal-only diff';
 export const description = false;
 export const builder = args;
 
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) => {
+  return graphite(argv, async (context) => {
     if (argv.target === 'uncommitted') {
       context.splog.info(context.engine.getDiff('HEAD', undefined));
       return;

@@ -34,11 +34,10 @@ export const command = '*';
 export const description =
   'Log all branches tracked by Charcoal, showing dependencies and info for each.';
 export const builder = args;
-export const canonical = 'log';
 
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const handler = async (argv: argsT): Promise<void> =>
-  graphite(argv, canonical, async (context) =>
+  graphite(argv, async (context) =>
     logAction(
       {
         style: 'FULL',

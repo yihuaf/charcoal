@@ -13,7 +13,6 @@ export function pullBranch(
       args: [`pull`, `--ff-only`, remote, branchName],
       options: { stdio: 'pipe' },
       onError: 'throw',
-      resource: 'pullBranch',
     });
     return 'OK';
   } catch (e: unknown) {

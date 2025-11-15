@@ -1,9 +1,5 @@
-// Why does an open source CLI include telemetry?
-// We the creators want to understand how people are using the tool
-// All metrics logged are listed plain to see, and are non blocking in case the server is unavailable.
 import yargs from 'yargs';
 import chalk from 'chalk';
-import { version } from '../../package.json';
 import { init } from '../actions/init';
 import { refreshPRInfoInBackground } from '../background_tasks/fetch_pr_info';
 import {
@@ -25,26 +21,25 @@ import {
 } from './errors';
 import { composeGit } from './git/git';
 import { TGlobalArguments } from './global_arguments';
-import { tracer } from './utils/tracer';
 import { CommandFailedError, CommandKilledError } from './git/runner';
 
 export async function graphite(
   args: yargs.Arguments & TGlobalArguments,
-  canonicalName: string,
-  handler: (context: TContext) => Promise<void>
+  handler: (context: TContext) => Promise<void>,
+  skipAutoInit?: boolean
 ): Promise<void> {
-  return graphiteInternal(args, canonicalName, {
+  return graphiteInternal(args, {
     repo: true as const,
     run: handler,
+    skipAutoInit,
   });
 }
 
 export async function graphiteWithoutRepo(
   args: yargs.Arguments & TGlobalArguments,
-  canonicalName: string,
   handler: (context: TContextLite) => Promise<void>
 ): Promise<void> {
-  return graphiteInternal(args, canonicalName, {
+  return graphiteInternal(args, {
     repo: false as const,
     run: handler,
   });
@@ -52,7 +47,6 @@ export async function graphiteWithoutRepo(
 
 async function graphiteInternal(
   args: yargs.Arguments & TGlobalArguments,
-  canonicalName: string,
   handler: TGraphiteCommandHandler
 ): Promise<void> {
   const handlerMaybeWithCacheLock = handler.repo
@@ -64,8 +58,6 @@ async function graphiteInternal(
 
   process.on('SIGINT', (): never => {
     handlerMaybeWithCacheLock.cacheLock?.release();
-    // End all current traces abruptly.
-    tracer.allSpans.forEach((s) => s.end(undefined, new KilledError()));
     // eslint-disable-next-line no-restricted-syntax
     process.exit(1);
   });
@@ -76,31 +68,13 @@ async function graphiteInternal(
   });
 
   try {
-    await tracer.span(
-      {
-        name: 'command',
-        resource: canonicalName,
-        meta: {
-          user: contextLite.userEmail ?? 'NotFound',
-          version: version,
-          gtInteractive: process.env.GRAPHITE_INTERACTIVE ? 'true' : 'false',
-          processArgv: process.argv.join(' '),
-        },
-      },
-      async () => {
-        if (!handlerMaybeWithCacheLock.repo) {
-          await handlerMaybeWithCacheLock.run(contextLite);
-          return;
-        }
+    if (!handlerMaybeWithCacheLock.repo) {
+      await handlerMaybeWithCacheLock.run(contextLite);
+      return;
+    }
 
-        const context = initContext(contextLite, git, args);
-        return await graphiteHelper(
-          canonicalName,
-          handlerMaybeWithCacheLock,
-          context
-        );
-      }
-    );
+    const context = initContext(contextLite, git, args);
+    await graphiteHelper(handlerMaybeWithCacheLock, context);
   } catch (err) {
     handleGraphiteError(err, contextLite);
     contextLite.splog.debug(err.stack);
@@ -112,9 +86,7 @@ async function graphiteInternal(
   }
 }
 
-// eslint-disable-next-line max-params
 async function graphiteHelper(
-  canonicalName: string,
   handler: TGraphiteCommandHandlerWithCacheLock,
   context: TContext
 ): Promise<{
@@ -126,11 +98,7 @@ async function graphiteHelper(
   try {
     refreshPRInfoInBackground(context);
 
-    if (
-      canonicalName !== 'init' &&
-      canonicalName !== 'repo init' &&
-      !context.repoConfig.graphiteInitialized()
-    ) {
+    if (!handler.skipAutoInit && !context.repoConfig.graphiteInitialized()) {
       context.splog.info(
         `Charcoal has not been initialized, attempting to setup now...`
       );
@@ -185,7 +153,11 @@ function handleGraphiteError(err: any, context: TContextLite): void {
 
 // typescript is fun!
 type TGraphiteCommandHandler =
-  | { repo: true; run: (context: TContext) => Promise<void> }
+  | {
+      repo: true;
+      run: (context: TContext) => Promise<void>;
+      skipAutoInit?: boolean;
+    }
   | {
       repo: false;
       run: (contextLite: TContextLite) => Promise<void>;
@@ -193,4 +165,5 @@ type TGraphiteCommandHandler =
 type TGraphiteCommandHandlerWithCacheLock = {
   run: (context: TContext) => Promise<void>;
   cacheLock: TCacheLock;
+  skipAutoInit?: boolean;
 };

@@ -27,13 +27,12 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'squash';
-export const canonical = 'branch squash';
 export const aliases = ['sq'];
 export const description =
   'Squash all commits in the current branch and restack upstack branches.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> =>
-  graphite(argv, canonical, async (context) =>
+  graphite(argv, async (context) =>
     squashCurrentBranch(
       {
         message: argv.message,

@@ -23,7 +23,6 @@ export function getCommitRange(
     ? runGitCommandAndSplitLines({
         args: [`--no-pager`, `log`, `--pretty=format:%H`, `${base}..${head}`],
         onError: 'throw',
-        resource: 'getCommitRangeHashes',
       }).map((sha) =>
         runGitCommand({
           args: [
@@ -34,7 +33,6 @@ export function getCommitRange(
             sha,
           ],
           onError: 'throw',
-          resource: 'getCommitRangeFormatted',
         })
       )
     : [
@@ -47,7 +45,6 @@ export function getCommitRange(
             head,
           ],
           onError: 'throw',
-          resource: 'getCommitRangeFormatted',
         }),
       ];
 }
@@ -68,7 +65,6 @@ export async function getCommitRangeAsync(
               `${base}..${head}`,
             ],
             onError: 'throw',
-            resource: 'getCommitRangeHashes',
           })
         ).map((sha) =>
           runAsyncGitCommand({
@@ -80,7 +76,6 @@ export async function getCommitRangeAsync(
               sha,
             ],
             onError: 'throw',
-            resource: 'getCommitRangeFormatted',
           })
         )
       : [
@@ -93,7 +88,6 @@ export async function getCommitRangeAsync(
               head,
             ],
             onError: 'throw',
-            resource: 'getCommitRangeFormatted',
           }),
         ]
   );

@@ -14,10 +14,9 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'submit-body';
 export const description = 'Options for default PR descriptions.';
-export const canonical = 'user submit-body';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphiteWithoutRepo(argv, canonical, async (context) => {
+  return graphiteWithoutRepo(argv, async (context) => {
     if (argv['include-commit-messages'] === true) {
       context.userConfig.update(
         (data) => (data.submitIncludeCommitMessages = true)

@@ -14,12 +14,11 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'name';
-export const canonical = 'repo name';
 export const description =
   "The current repo's name stored in Charcoal. e.g. in 'danerwilliams/charcoal', this is 'charcoal'.";
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) => {
+  return graphite(argv, async (context) => {
     if (argv.set) {
       context.repoConfig.update((data) => (data.name = argv.set));
     } else {

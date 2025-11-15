@@ -12,6 +12,5 @@ export function logLong(): void {
     ],
     options: { stdio: 'inherit' },
     onError: 'throw',
-    resource: `logLong`,
   });
 }

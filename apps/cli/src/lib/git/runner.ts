@@ -4,8 +4,6 @@ import {
   spawnSync,
   SpawnSyncOptions,
 } from 'child_process';
-import { cuteString } from '../utils/cute_string';
-import { tracer } from '../utils/tracer';
 
 export function runGitCommandAndSplitLines(
   params: TRunGitCommandParameters
@@ -28,23 +26,10 @@ export type TRunGitCommandParameters = {
     noTrim?: boolean;
   };
   onError: 'throw' | 'ignore';
-  resource: string | null;
 };
 
 export function runGitCommand(params: TRunGitCommandParameters): string {
-  // Only measure if we're with an existing span.
-  return params.resource && tracer.currentSpanId
-    ? tracer.spanSync(
-        {
-          name: 'spawnedCommand',
-          resource: params.resource,
-          meta: { runCommandArgs: cuteString(params) },
-        },
-        () => {
-          return runGitCommandInternal(params);
-        }
-      )
-    : runGitCommandInternal(params);
+  return runGitCommandInternal(params);
 }
 
 export type TRunAsyncGitCommandParameters = {
@@ -53,25 +38,12 @@ export type TRunAsyncGitCommandParameters = {
     noTrim?: boolean;
   };
   onError: 'throw' | 'ignore';
-  resource: string | null;
 };
 
 export function runAsyncGitCommand(
   params: TRunAsyncGitCommandParameters
 ): Promise<string> {
-  // Only measure if we're with an existing span.
-  return params.resource && tracer.currentSpanId
-    ? tracer.span(
-        {
-          name: 'spawnedCommand',
-          resource: params.resource,
-          meta: { runCommandArgs: cuteString(params) },
-        },
-        () => {
-          return runAsyncGitCommandInternal(params);
-        }
-      )
-    : runAsyncGitCommandInternal(params);
+  return runAsyncGitCommandInternal(params);
 }
 
 function runGitCommandInternal(params: TRunGitCommandParameters): string {

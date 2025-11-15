@@ -4,12 +4,11 @@ import { graphite } from '../../lib/runner';
 import type { argsT } from '../shared-commands/submit';
 
 export { aliases, args, builder, command } from '../shared-commands/submit';
-export const canonical = 'stack submit';
 export const description =
   'Idempotently force push all branches in the current stack to GitHub, creating or updating distinct pull requests for each.';
 
 export const handler = async (argv: argsT): Promise<void> => {
-  await graphite(argv, canonical, async (context) => {
+  await graphite(argv, async (context) => {
     await submitAction(
       {
         scope: SCOPE.STACK,

@@ -61,18 +61,15 @@ export function recreateState(stateJson: string, splog: TSplog): string {
   runGitCommand({
     args: ['init', '-b', tmpTrunk],
     onError: 'throw',
-    resource: 'debugContextInit',
   });
   fs.writeFileSync(path.join(process.cwd(), 'first.txt'), 'first');
   runGitCommand({
     args: ['add', 'first.txt'],
     onError: 'throw',
-    resource: 'debugContextInitAdd',
   });
   runGitCommand({
     args: ['commit', '-m', 'first'],
     onError: 'throw',
-    resource: 'debugContextInitCommit',
   });
 
   splog.info(`Creating ${Object.keys(state.commitTree).length} commits`);
@@ -133,13 +130,11 @@ function createBranches(
       runGitCommand({
         args: [`branch`, `--show-current`],
         onError: 'ignore',
-        resource: 'debugContextCurrentBranch',
       })
     ) {
       runGitCommand({
         args: [`branch`, `-f`, branch, originalRef],
         onError: 'throw',
-        resource: 'debugContextCreateBranch',
       });
     } else {
       splog.warn(
@@ -167,7 +162,6 @@ function recreateCommits(
   const treeSha = runGitCommand({
     args: [`rev-parse`, `HEAD^{tree}`],
     onError: 'throw',
-    resource: 'debugContextTreeSha',
   });
   const totalOldCommits = Object.keys(opts.commitTree).length;
 
@@ -203,7 +197,6 @@ function recreateCommits(
             ])),
       ],
       onError: 'throw',
-      resource: 'debugContextCommit',
     });
 
     // Save mapping so we can later associate branches.

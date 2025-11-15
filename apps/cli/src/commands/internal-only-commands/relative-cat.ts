@@ -22,13 +22,12 @@ const args = {
 } as const;
 
 export const command = 'relative-cat [target] [file]';
-export const canonical = 'internal-only relative-cat';
 export const description = false;
 export const builder = args;
 
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) => {
+  return graphite(argv, async (context) => {
     if (argv.target === 'uncommitted') {
       context.splog.info(context.engine.getFileContents('HEAD', argv.file));
       return;

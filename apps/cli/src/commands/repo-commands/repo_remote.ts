@@ -14,12 +14,11 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'remote';
-export const canonical = 'repo remote';
 export const description =
   "Specifies the remote that Charcoal pushes to/pulls from (defaults to 'origin')";
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) => {
+  return graphite(argv, async (context) => {
     if (argv.set) {
       context.repoConfig.setRemote(argv.set);
     } else {

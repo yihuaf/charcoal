@@ -7,7 +7,6 @@ export function getStatus(): TStatusFile[] {
   const result = runGitCommand({
     args: [`status`, '-z'],
     onError: 'ignore',
-    resource: 'getStatus',
     options: { noTrim: true },
   });
 

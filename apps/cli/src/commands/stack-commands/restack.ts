@@ -13,12 +13,11 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const aliases = ['r', 'fix', 'f'];
 export const command = 'restack';
-export const canonical = 'stack restack';
 export const description =
   'Ensure each branch in the current stack is based on its parent, rebasing if necessary.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> =>
-  graphite(argv, canonical, async (context) => {
+  graphite(argv, async (context) => {
     return restackBranches(
       context.engine.getRelativeStack(
         argv.branch ?? context.engine.currentBranchPrecondition,

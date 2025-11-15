@@ -8,7 +8,6 @@ export function getShaOrThrow(ref: string): string {
   return runGitCommand({
     args: [`rev-parse`, ref],
     onError: 'throw',
-    resource: 'getShaOrThrow',
   });
 }
 
@@ -16,7 +15,6 @@ export function getSha(ref: string): string {
   return runGitCommand({
     args: [`rev-parse`, ref],
     onError: 'ignore',
-    resource: 'getSha',
   });
 }
 
@@ -24,7 +22,6 @@ export function getShaAsync(ref: string): Promise<string> {
   return runAsyncGitCommand({
     args: [`rev-parse`, ref],
     onError: 'ignore',
-    resource: 'getSha',
   });
 }
 
@@ -50,7 +47,6 @@ function fetchRemoteShas(remote: string) {
   runGitCommandAndSplitLines({
     args: [`ls-remote`, '--heads', remote],
     onError: 'ignore',
-    resource: 'fetchRemoteShas',
   })
     // sample line of output
     // 7edb7094e4c66892d783c1effdd106df277a860e        refs/heads/main

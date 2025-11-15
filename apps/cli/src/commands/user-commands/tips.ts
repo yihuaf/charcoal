@@ -20,10 +20,9 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'tips';
 export const description = 'Show tips while using Charcoal';
-export const canonical = 'user tips';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphiteWithoutRepo(argv, canonical, async (context) => {
+  return graphiteWithoutRepo(argv, async (context) => {
     if (argv.enable) {
       context.userConfig.update((data) => (data.tips = true));
       context.splog.info(`tips enabled`);

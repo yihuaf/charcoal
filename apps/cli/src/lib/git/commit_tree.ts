@@ -6,7 +6,6 @@ export function getCommitTree(branchNames: string[]): Record<string, string[]> {
     `${runGitCommand({
       args: [`merge-base`, `--octopus`, ...branchNames],
       onError: 'ignore',
-      resource: 'parentOfMergeBase',
     })}~`
   );
   const ret: Record<string, string[]> = {};
@@ -20,7 +19,6 @@ export function getCommitTree(branchNames: string[]): Record<string, string[]> {
       '--',
     ],
     onError: 'throw',
-    resource: 'getCommitTree',
   })
     .map((l) => l.split(' '))
     .forEach((l) => (ret[l[0]] = l.slice(1)));

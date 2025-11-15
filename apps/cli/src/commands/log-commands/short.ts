@@ -43,11 +43,10 @@ export const description =
   'Log all stacks tracked by Charcoal, arranged to show dependencies.';
 export const builder = args;
 export const aliases = ['s'];
-export const canonical = 'log short';
 
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const handler = async (argv: argsT): Promise<void> =>
-  graphite(argv, canonical, async (context) =>
+  graphite(argv, async (context) =>
     argv.classic
       ? logShortClassic(context)
       : logAction(

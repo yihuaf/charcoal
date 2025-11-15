@@ -13,11 +13,10 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'github';
-export const canonical = 'repo github';
 export const description = 'Toggle the GitHub integration for this repo.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> =>
-  graphite(argv, canonical, async (context) => {
+  graphite(argv, async (context) => {
     if (argv.enable) {
       context.repoConfig.setIsGithubIntegrationEnabled(true);
       context.splog.info('GitHub integration is now enabled for this repo.');

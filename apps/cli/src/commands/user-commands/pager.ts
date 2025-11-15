@@ -25,10 +25,9 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const command = 'pager';
 export const description = 'The pager opened by Charcoal.';
-export const canonical = 'user pager';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphiteWithoutRepo(argv, canonical, async (context) => {
+  return graphiteWithoutRepo(argv, async (context) => {
     if (argv.disable) {
       context.userConfig.update((data) => (data.pager = ''));
       context.splog.info(`Pager disabled`);

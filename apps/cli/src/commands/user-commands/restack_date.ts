@@ -18,10 +18,9 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const command = 'restack-date';
 export const description =
   'Configure how committer date is handled by restack internal rebases.';
-export const canonical = 'user restack-date';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphiteWithoutRepo(argv, canonical, async (context) => {
+  return graphiteWithoutRepo(argv, async (context) => {
     if (typeof argv['use-author-date'] === undefined) {
       context.splog.info(
         `\`--committer-date-is-author-date\` will ${

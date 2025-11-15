@@ -5,7 +5,6 @@ export function getUserEmail(): string | undefined {
     return runGitCommand({
       args: [`config`, `user.email`],
       onError: 'ignore',
-      resource: 'getUserEmail',
     });
   } catch {
     return undefined;

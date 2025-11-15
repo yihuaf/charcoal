@@ -14,7 +14,6 @@ export function fetchBranch(remote: string, branchName: string): void {
     ],
     options: { stdio: 'pipe' },
     onError: 'throw',
-    resource: 'fetchBranch',
   });
 }
 export function readFetchHead(): string {
@@ -30,6 +29,5 @@ export function writeFetchBase(sha: string): void {
     args: [`update-ref`, FETCH_BASE, sha],
     options: { stdio: 'pipe' },
     onError: 'throw',
-    resource: 'writeFetchBase',
   });
 }

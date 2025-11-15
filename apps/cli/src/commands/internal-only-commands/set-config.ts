@@ -21,13 +21,12 @@ const args = {
 } as const;
 
 export const command = 'set-config [config-name] [config-value]';
-export const canonical = 'internal-only set-config';
 export const description = false;
 export const builder = args;
 
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) => {
+  return graphite(argv, async (context) => {
     context.userConfig.update((data) => {
       data.gtiConfigs = [
         ...(data.gtiConfigs || []).filter(

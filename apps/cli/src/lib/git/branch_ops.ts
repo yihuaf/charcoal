@@ -4,7 +4,6 @@ export function getCurrentBranchName(): string | undefined {
   const branchName = runGitCommand({
     args: [`branch`, `--show-current`],
     onError: 'ignore',
-    resource: 'getCurrentBranchName',
   });
 
   return branchName.length > 0 ? branchName : undefined;
@@ -15,7 +14,6 @@ export function moveBranch(newName: string): void {
     args: [`branch`, `-m`, newName],
     options: { stdio: 'pipe' },
     onError: 'throw',
-    resource: 'moveBranch',
   });
 }
 
@@ -24,7 +22,6 @@ export function deleteBranch(branchName: string): void {
     args: [`branch`, `-D`, branchName],
     options: { stdio: 'pipe' },
     onError: 'throw',
-    resource: 'deleteBranch',
   });
 }
 
@@ -42,7 +39,6 @@ export function switchBranch(
     ],
     options: { stdio: 'pipe' },
     onError: 'throw',
-    resource: 'switchBranch',
   });
 }
 
@@ -51,7 +47,6 @@ export function forceCheckoutNewBranch(branchName: string, sha: string): void {
     args: [`switch`, `-C`, branchName, sha],
     options: { stdio: 'pipe' },
     onError: 'throw',
-    resource: 'forceCheckoutNewBranch',
   });
 }
 
@@ -60,6 +55,5 @@ export function forceCreateBranch(branchName: string, sha: string): void {
     args: [`branch`, `-f`, branchName, sha],
     options: { stdio: 'pipe' },
     onError: 'throw',
-    resource: 'forceCreateBranch',
   });
 }

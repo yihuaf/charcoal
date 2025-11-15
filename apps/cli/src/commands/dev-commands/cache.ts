@@ -4,7 +4,6 @@ import { getCacheLock } from '../../lib/engine/cache_lock';
 import { composeGit } from '../../lib/git/git';
 
 export const command = 'cache';
-export const canonical = 'dev cache';
 export const description = false;
 
 const args = {

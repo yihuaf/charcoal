@@ -5,7 +5,6 @@ function doChangesExist(args: string[]): boolean {
     runGitCommand({
       args,
       onError: 'throw',
-      resource: 'doChangesExist',
     }).length > 0
   );
 }

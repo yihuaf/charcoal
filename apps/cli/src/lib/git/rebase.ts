@@ -20,7 +20,6 @@ export function rebase(args: {
       args.from,
       args.branchName,
     ],
-    resource: 'rebase',
   });
 }
 
@@ -30,7 +29,6 @@ export function rebaseContinue(): TRebaseResult {
     options: {
       env: { ...process.env, GIT_EDITOR: 'true' },
     },
-    resource: 'rebaseContinue',
   });
 }
 
@@ -39,7 +37,6 @@ export function rebaseAbort(): void {
     args: [`rebase`, `--abort`],
     options: { stdio: 'pipe' },
     onError: 'throw',
-    resource: 'rebaseAbort',
   });
 }
 
@@ -49,7 +46,6 @@ export function rebaseInteractive(args: {
 }): TRebaseResult {
   return rebaseInternal({
     args: [`-i`, args.parentBranchRevision, args.branchName],
-    resource: 'rebaseInteractive',
     options: { stdio: 'inherit' },
   });
 }
@@ -57,14 +53,12 @@ export function rebaseInteractive(args: {
 function rebaseInternal(params: {
   args: string[];
   options?: Pick<SpawnSyncOptions, 'stdio' | 'env'>;
-  resource: string;
 }) {
   try {
     runGitCommand({
       args: ['rebase', ...params.args],
       options: { stdio: 'pipe', ...params.options },
       onError: 'throw',
-      resource: params.resource,
     });
   } catch (e) {
     if (rebaseInProgress()) {

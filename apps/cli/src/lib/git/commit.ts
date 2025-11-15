@@ -22,6 +22,5 @@ export function commit(opts: TCommitOpts & { noVerify: boolean }): void {
       stdio: 'inherit',
     },
     onError: 'throw',
-    resource: 'commit',
   });
 }

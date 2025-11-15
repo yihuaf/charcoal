@@ -6,10 +6,9 @@ import type { argsT } from '../shared-commands/submit';
 export { aliases, builder, command } from '../shared-commands/submit';
 export const description =
   'Idempotently force push all branches from trunk to the current branch to GitHub, creating or updating distinct pull requests for each.';
-export const canonical = 'downstack submit';
 
 export const handler = async (argv: argsT): Promise<void> => {
-  await graphite(argv, canonical, async (context) => {
+  await graphite(argv, async (context) => {
     await submitAction(
       {
         scope: SCOPE.DOWNSTACK,

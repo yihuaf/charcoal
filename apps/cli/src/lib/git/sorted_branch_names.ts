@@ -11,7 +11,6 @@ export function getBranchNamesAndRevisions(): Record<string, string> {
       `refs/heads/`,
     ],
     onError: 'throw',
-    resource: 'getBranchNamesAndRevisions',
   })
     .map((line) => line.split(':'))
     .filter(

@@ -24,14 +24,13 @@ const args = {
 } as const;
 
 export const command = 'meta <branch>';
-export const canonical = 'dev meta';
 export const description = false;
 export const builder = args;
 
 // This command allows for direct access to the metadata ref. USE WITH CARE!
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const handler = async (argv: argsT): Promise<void> => {
-  return graphite(argv, canonical, async (context) => {
+  return graphite(argv, async (context) => {
     const metaString = cuteString(readMetadataRef(argv.branch));
     if (!argv.edit) {
       context.splog.info(metaString);

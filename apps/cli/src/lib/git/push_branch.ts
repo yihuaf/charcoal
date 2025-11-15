@@ -19,6 +19,5 @@ export function pushBranch(opts: {
     ],
     options: { stdio: 'pipe' },
     onError: 'throw',
-    resource: 'pushBranch',
   });
 }
