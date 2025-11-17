@@ -1,13 +1,13 @@
-import * as t from '@withgraphite/retype';
+import { z } from 'zod';
 import { spiffy } from './spiffy';
 
-const schema = t.shape({
-  message: t.optional(
-    t.shape({
-      contents: t.string,
-      cliVersion: t.string,
+const schema = z.object({
+  message: z
+    .object({
+      contents: z.string(),
+      cliVersion: z.string(),
     })
-  ),
+    .optional(),
 });
 
 export const messageConfigFactory = spiffy({

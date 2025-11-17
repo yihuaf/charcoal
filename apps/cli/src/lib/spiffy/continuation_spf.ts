@@ -1,4 +1,4 @@
-import * as t from '@withgraphite/retype';
+import { z } from 'zod';
 import { spiffy } from './spiffy';
 
 /**
@@ -14,11 +14,11 @@ import { spiffy } from './spiffy';
  * We need to keep track of the new parentBranchRevision for the branch that
  * hit a merge conflict, as we cannot pull this information from Git.
  */
-const ContinueSchema = t.shape({
-  branchesToSync: t.array(t.string),
-  branchesToRestack: t.array(t.string),
-  currentBranchOverride: t.optional(t.string),
-  rebasedBranchBase: t.optional(t.string),
+const ContinueSchema = z.object({
+  branchesToSync: z.array(z.string()),
+  branchesToRestack: z.array(z.string()),
+  currentBranchOverride: z.string().optional(),
+  rebasedBranchBase: z.string().optional(),
 });
 
 export const continueConfigFactory = spiffy({

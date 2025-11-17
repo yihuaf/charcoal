@@ -1,11 +1,13 @@
-import * as t from '@withgraphite/retype';
+import { z } from 'zod';
 import { spiffy } from './spiffy';
 
+const schema = z.object({
+  timestamp: z.number().optional(),
+  pid: z.number().optional(),
+});
+
 export const cacheLockConfigFactory = spiffy({
-  schema: t.shape({
-    timestamp: t.optional(t.number),
-    pid: t.optional(t.number),
-  }),
+  schema,
   defaultLocations: [
     {
       relativePath: '.graphite_cache_lock',
