@@ -1,37 +1,38 @@
-import * as t from '@withgraphite/retype';
+import { z } from 'zod';
 import { BadTrunkOperationError, UntrackedBranchError } from '../errors';
 import { prInfoSchema } from './metadata_ref';
 
-export const cachedMetaSchema = t.intersection(
-  t.shape({
-    children: t.array(t.string),
-    branchRevision: t.string,
-    prInfo: t.optional(prInfoSchema),
+// Base schema with common fields
+const baseCachedMetaSchema = z.object({
+  children: z.array(z.string()),
+  branchRevision: z.string(),
+  prInfo: prInfoSchema.optional(),
+});
+
+// Discriminated union schema
+export const cachedMetaSchema = z.discriminatedUnion('validationResult', [
+  baseCachedMetaSchema.extend({
+    validationResult: z.literal('VALID'),
+    parentBranchName: z.string(),
+    parentBranchRevision: z.string(),
   }),
-  t.taggedUnion('validationResult' as const, {
-    VALID: {
-      validationResult: t.literal('VALID' as const),
-      parentBranchName: t.string,
-      parentBranchRevision: t.string,
-    },
-    INVALID_PARENT: {
-      validationResult: t.literal('INVALID_PARENT' as const),
-      parentBranchName: t.string,
-      parentBranchRevision: t.optional(t.string),
-    },
-    BAD_PARENT_REVISION: {
-      validationResult: t.literal('BAD_PARENT_REVISION' as const),
-      parentBranchName: t.string,
-    },
-    BAD_PARENT_NAME: {
-      validationResult: t.literal('BAD_PARENT_NAME' as const),
-    },
-    TRUNK: {
-      validationResult: t.literal('TRUNK' as const),
-    },
-  })
-);
-export type TCachedMeta = t.TypeOf<typeof cachedMetaSchema>;
+  baseCachedMetaSchema.extend({
+    validationResult: z.literal('INVALID_PARENT'),
+    parentBranchName: z.string(),
+    parentBranchRevision: z.string().optional(),
+  }),
+  baseCachedMetaSchema.extend({
+    validationResult: z.literal('BAD_PARENT_REVISION'),
+    parentBranchName: z.string(),
+  }),
+  baseCachedMetaSchema.extend({
+    validationResult: z.literal('BAD_PARENT_NAME'),
+  }),
+  baseCachedMetaSchema.extend({
+    validationResult: z.literal('TRUNK'),
+  }),
+]);
+export type TCachedMeta = z.infer<typeof cachedMetaSchema>;
 
 type TValidCachedMeta = Extract<
   TCachedMeta,

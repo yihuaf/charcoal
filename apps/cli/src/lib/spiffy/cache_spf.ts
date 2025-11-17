@@ -1,11 +1,11 @@
-import * as t from '@withgraphite/retype';
+import { z } from 'zod';
 import { cachedMetaSchema } from '../engine/cached_meta';
 import { spiffy } from './spiffy';
 
 export const cachePersistenceFactory = spiffy({
-  schema: t.shape({
-    sha: (sha: unknown): sha is string => t.string(sha) && sha.length === 40,
-    branches: t.array(t.tuple([t.string, cachedMetaSchema])),
+  schema: z.object({
+    sha: z.string().length(40),
+    branches: z.array(z.tuple([z.string(), cachedMetaSchema])),
   }),
   defaultLocations: [
     {

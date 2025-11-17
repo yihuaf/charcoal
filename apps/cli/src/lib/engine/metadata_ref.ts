@@ -1,37 +1,27 @@
-import * as t from '@withgraphite/retype';
+import { z } from 'zod';
 import { cuteString } from '../utils/cute_string';
 import { runGitCommand, runGitCommandAndSplitLines } from '../git/runner';
 
-export const prInfoSchema = t.shape({
-  number: t.optional(t.number),
-  base: t.optional(t.string),
-  url: t.optional(t.string),
-  title: t.optional(t.string),
-  body: t.optional(t.string),
-  state: t.optional(
-    t.unionMany([
-      t.literal('OPEN' as const),
-      t.literal('CLOSED' as const),
-      t.literal('MERGED' as const),
-    ])
-  ),
-  reviewDecision: t.optional(
-    t.unionMany([
-      t.literal('APPROVED' as const),
-      t.literal('REVIEW_REQUIRED' as const),
-      t.literal('CHANGES_REQUESTED' as const),
-    ])
-  ),
-  isDraft: t.optional(t.boolean),
+export const prInfoSchema = z.object({
+  number: z.number().optional(),
+  base: z.string().optional(),
+  url: z.string().optional(),
+  title: z.string().optional(),
+  body: z.string().optional(),
+  state: z.enum(['OPEN', 'CLOSED', 'MERGED']).optional(),
+  reviewDecision: z
+    .enum(['APPROVED', 'REVIEW_REQUIRED', 'CHANGES_REQUESTED'])
+    .optional(),
+  isDraft: z.boolean().optional(),
 });
-export type TBranchPRInfo = t.TypeOf<typeof prInfoSchema>;
+export type TBranchPRInfo = z.infer<typeof prInfoSchema>;
 
-const metaSchema = t.shape({
-  parentBranchName: t.optional(t.string),
-  parentBranchRevision: t.optional(t.string),
-  prInfo: t.optional(prInfoSchema),
+const metaSchema = z.object({
+  parentBranchName: z.string().optional(),
+  parentBranchRevision: z.string().optional(),
+  prInfo: prInfoSchema.optional(),
 });
-export type TMeta = t.TypeOf<typeof metaSchema>;
+export type TMeta = z.infer<typeof metaSchema>;
 
 export function writeMetadataRef(
   branchName: string,
@@ -68,7 +58,8 @@ export function readMetadataRef(branchName: string, cwd?: string): TMeta {
       })
     );
 
-    return metaSchema(meta) ? meta : {};
+    const result = metaSchema.safeParse(meta);
+    return result.success ? result.data : {};
   } catch {
     return {};
   }

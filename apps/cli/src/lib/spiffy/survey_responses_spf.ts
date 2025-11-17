@@ -1,19 +1,24 @@
-import * as t from '@withgraphite/retype';
+import { z } from 'zod';
 import { spiffy } from './spiffy';
 
-const surveyConfigSchema = t.shape({
-  responses: t.optional(
-    t.shape({
-      timestamp: t.number,
-      responses: t.array(t.shape({ question: t.string, answer: t.string })),
-      exitedEarly: t.boolean,
+const surveyConfigSchema = z.object({
+  responses: z
+    .object({
+      timestamp: z.number(),
+      responses: z.array(
+        z.object({
+          question: z.string(),
+          answer: z.string(),
+        })
+      ),
+      exitedEarly: z.boolean(),
     })
-  ),
-  postingResponse: t.boolean,
+    .optional(),
+  postingResponse: z.boolean(),
 });
 
 export type TSurveyResponse = NonNullable<
-  t.TypeOf<typeof surveyConfigSchema>['responses']
+  z.infer<typeof surveyConfigSchema>['responses']
 >;
 
 export const surveyConfigFactory = spiffy({

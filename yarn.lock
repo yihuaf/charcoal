@@ -323,7 +323,6 @@ __metadata:
     "@types/yargs": ^17.0.10
     "@typescript-eslint/eslint-plugin": ^5.27.1
     "@typescript-eslint/parser": ^5.27.1
-    "@withgraphite/retype": ^0.3.11
     chai: ^4.3.6
     chai-as-promised: ^7.1.1
     chalk: ^4.1.2
@@ -1026,13 +1025,6 @@ __metadata:
   version: 1.1.2
   resolution: "@ungap/promise-all-settled@npm:1.1.2"
   checksum: 08d37fdfa23a6fe8139f1305313562ebad973f3fac01bcce2773b2bda5bcb0146dfdcf3cb6a722cf0a5f2ca0bc56a827eac8f1e7b3beddc548f654addf1fc34c
-  languageName: node
-  linkType: hard
-
-"@withgraphite/retype@npm:^0.3.11":
-  version: 0.3.11
-  resolution: "@withgraphite/retype@npm:0.3.11"
-  checksum: c8c1123bc90576a0ca0940bfef8a9efb43149ccab0668a3621fc894f3afaf558aa13dd05f447722db35d8fda0d14adf8fa7224d262ec712d6db51553b893e3f4
   languageName: node
   linkType: hard
 

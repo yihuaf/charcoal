@@ -1,41 +1,39 @@
-import * as t from '@withgraphite/retype';
+import { z } from 'zod';
 import { execSync } from 'child_process';
 import { getGitEditor, getGitPager } from '../git/git_editor';
 import { CommandFailedError } from '../git/runner';
 import { spiffy } from './spiffy';
 
-const schema = t.shape({
-  branchPrefix: t.optional(t.string),
-  branchDate: t.optional(t.boolean),
-  branchReplacement: t.optional(
-    t.unionMany([t.literal('_'), t.literal('-'), t.literal('')])
-  ),
-  tips: t.optional(t.boolean),
-  editor: t.optional(t.string),
-  pager: t.optional(t.string),
-  restackCommitterDateIsAuthorDate: t.optional(t.boolean),
-  submitIncludeCommitMessages: t.optional(t.boolean),
-  connectCliToLocalServer: t.optional(t.boolean),
-  gtiConfigs: t.optional(
-    t.array(
-      t.shape({
-        key: t.string,
-        value: t.string,
+const schema = z.object({
+  branchPrefix: z.string().optional(),
+  branchDate: z.boolean().optional(),
+  branchReplacement: z.enum(['_', '-', '']).optional(),
+  tips: z.boolean().optional(),
+  editor: z.string().optional(),
+  pager: z.string().optional(),
+  restackCommitterDateIsAuthorDate: z.boolean().optional(),
+  submitIncludeCommitMessages: z.boolean().optional(),
+  connectCliToLocalServer: z.boolean().optional(),
+  gtiConfigs: z
+    .array(
+      z.object({
+        key: z.string(),
+        value: z.string(),
       })
     )
-  ),
-  alternativeProfiles: t.optional(
-    t.array(
-      t.shape({
-        name: t.string,
-        hostPrefix: t.string,
+    .optional(),
+  alternativeProfiles: z
+    .array(
+      z.object({
+        name: z.string(),
+        hostPrefix: z.string(),
       })
     )
-  ),
+    .optional(),
 });
 
 export type TProfile = Required<
-  t.TypeOf<typeof schema>
+  z.infer<typeof schema>
 >['alternativeProfiles'][number];
 
 export type TApiServerUrl = string;

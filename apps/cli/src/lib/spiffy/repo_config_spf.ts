@@ -1,16 +1,16 @@
-import * as t from '@withgraphite/retype';
+import { z } from 'zod';
 import { ExitFailedError } from '../errors';
 import { runGitCommand } from '../git/runner';
 import { spiffy } from './spiffy';
 
-const schema = t.shape({
-  host: t.optional(t.string),
-  owner: t.optional(t.string),
-  name: t.optional(t.string),
-  trunk: t.optional(t.string),
-  remote: t.optional(t.string),
-  lastFetchedPRInfoMs: t.optional(t.number),
-  isGithubIntegrationEnabled: t.optional(t.boolean),
+const schema = z.object({
+  host: z.string().optional(),
+  owner: z.string().optional(),
+  name: z.string().optional(),
+  trunk: z.string().optional(),
+  remote: z.string().optional(),
+  lastFetchedPRInfoMs: z.number().optional(),
+  isGithubIntegrationEnabled: z.boolean().optional(),
 });
 
 export const repoConfigFactory = spiffy({

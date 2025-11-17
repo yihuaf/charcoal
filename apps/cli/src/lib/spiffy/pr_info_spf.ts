@@ -1,33 +1,25 @@
-import * as t from '@withgraphite/retype';
+import { z } from 'zod';
 import { spiffy } from './spiffy';
 
 // Define the PR info schema manually based on GitHub CLI output
-const prInfoSchema = t.array(
-  t.shape({
-    prNumber: t.number,
-    headRefName: t.string,
-    baseRefName: t.string,
-    title: t.string,
-    body: t.string,
-    url: t.string,
-    state: t.unionMany([
-      t.literal('OPEN'),
-      t.literal('CLOSED'),
-      t.literal('MERGED'),
-    ]),
-    reviewDecision: t.optional(
-      t.unionMany([
-        t.literal('APPROVED'),
-        t.literal('REVIEW_REQUIRED'),
-        t.literal('CHANGES_REQUESTED'),
-      ])
-    ),
-    isDraft: t.boolean,
+const prInfoSchema = z.array(
+  z.object({
+    prNumber: z.number(),
+    headRefName: z.string(),
+    baseRefName: z.string(),
+    title: z.string(),
+    body: z.string(),
+    url: z.string(),
+    state: z.enum(['OPEN', 'CLOSED', 'MERGED']),
+    reviewDecision: z
+      .enum(['APPROVED', 'REVIEW_REQUIRED', 'CHANGES_REQUESTED'])
+      .optional(),
+    isDraft: z.boolean(),
   })
 );
 
 export const prInfoConfigFactory = spiffy({
-  schema: t.shape({
+  schema: z.object({
     prInfoToUpsert: prInfoSchema,
   }),
   defaultLocations: [

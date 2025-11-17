@@ -1,4 +1,3 @@
-import * as t from '@withgraphite/retype';
 import { z } from 'zod';
 import fs from 'fs-extra';
 import os from 'os';
@@ -74,7 +73,7 @@ type TDefaultFileLocation = {
 type TSpfMutator<TSpfData> = (data: TSpfData) => void;
 type TSpfTemplate<TSpfData, THelperFunctions> = {
   defaultLocations: TDefaultFileLocation[];
-  schema: t.Schema<TSpfData> | z.ZodSchema<TSpfData>;
+  schema: z.ZodSchema<TSpfData>;
   initialize: () => unknown;
   helperFunctions: (
     data: TSpfData,
@@ -121,7 +120,7 @@ function readOrInitSpf<TSpfData>({
   removeIfInvalid,
 }: {
   filePath: string;
-  schema: t.Schema<TSpfData> | z.ZodSchema<TSpfData>;
+  schema: z.ZodSchema<TSpfData>;
   initialize: () => TSpfData;
   removeIfInvalid: boolean;
 }): TSpfData {
@@ -131,26 +130,11 @@ function readOrInitSpf<TSpfData>({
       ? JSON.parse(fs.readFileSync(filePath).toString()) // JSON.parse might throw.
       : initialize();
 
-    // Check if schema is Zod or retype
-    let spfIsValid: boolean;
-    let validatedData: TSpfData = parsedFile;
-
-    if ('safeParse' in schema) {
-      // Zod schema
-      const result = schema.safeParse(parsedFile);
-      spfIsValid = result.success;
-      if (result.success) {
-        validatedData = result.data;
-      }
-    } else {
-      // Retype schema
-      spfIsValid = schema(parsedFile, { logFailures: false });
-    }
-
-    if (!spfIsValid) {
+    const result = schema.safeParse(parsedFile);
+    if (!result.success) {
       throw new Error('Malformed data'); // expected to be caught below.
     }
-    return validatedData;
+    return result.data;
   } catch {
     if (removeIfInvalid) {
       fs.removeSync(filePath);
