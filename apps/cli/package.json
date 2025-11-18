@@ -25,8 +25,8 @@
       "dist/src/lib/gt.fish"
     ],
     "targets": [
-      "node18-macos",
-      "node18-linux"
+      "node22-macos",
+      "node22-linux"
     ],
     "outputPath": "pkg"
   },
@@ -57,12 +57,15 @@
     "graphite": "dist/src/index.js",
     "gt": "dist/src/index.js"
   },
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "devDependencies": {
     "@types/chai": "^4.3.1",
     "@types/chai-as-promised": "^7.1.5",
     "@types/fs-extra": "^9.0.13",
     "@types/mocha": "^9.1.1",
-    "@types/node": "^17.0.40",
+    "@types/node": "^22.0.0",
     "@types/prettier": "^2",
     "@types/prompts": "^2.4.3",
     "@types/semver": "^7",
@@ -84,6 +87,6 @@
     "pkg": "^5.8.1",
     "prettier": "^2.8.3",
     "ts-node": "^10.8.1",
-    "typescript": "^4.7.3"
+    "typescript": "^5.7.2"
   }
 }
