@@ -9,13 +9,13 @@ for (const scene of allScenes) {
 
     it('Can rename a branch', () => {
       scene.repo.createChange('a', 'a');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
 
       scene.repo.createChange('b', 'b');
-      scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `b`]);
+      scene.repo.runCliCommand([`create`, `b`, `-m`, `b`]);
 
       scene.repo.checkoutBranch('a');
-      scene.repo.runCliCommand([`branch`, `rename`, `a1`]);
+      scene.repo.runCliCommand([`rename`, `a1`]);
 
       expect(() => scene.repo.runCliCommand([`ls`])).not.to.throw();
 
@@ -31,13 +31,13 @@ for (const scene of allScenes) {
     });
     it("Renaming a branch to its own name doesn't break", () => {
       scene.repo.createChange('a', 'a');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
 
       scene.repo.createChange('b', 'b');
-      scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `b`]);
+      scene.repo.runCliCommand([`create`, `b`, `-m`, `b`]);
 
       scene.repo.checkoutBranch('a');
-      scene.repo.runCliCommand([`branch`, `rename`, `a`]);
+      scene.repo.runCliCommand([`rename`, `a`]);
 
       expect(() => scene.repo.runCliCommand([`ls`])).not.to.throw();
       expect(() => scene.repo.runCliCommand([`bu`])).not.to.throw();

@@ -21,12 +21,12 @@ for (const scene of allScenes) {
       // we should be able to track the dangling branch 'a' while it's checked out
       scene.repo.checkoutBranch('a');
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `track`, `-p`, `main`]);
+        scene.repo.runCliCommand([`track`, `-p`, `main`]);
       }).to.not.throw();
 
       expectCommits(scene.repo, 'a3, a2, a1, 1');
 
-      scene.repo.runCliCommand([`branch`, `restack`]);
+      scene.repo.runCliCommand([`restack`]);
 
       expectCommits(scene.repo, 'a3, a2, a1, b, 1');
 
@@ -41,7 +41,7 @@ for (const scene of allScenes) {
       scene.repo.createChangeAndCommit('b', 'b');
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `track`, `-p`, `main`]);
+        scene.repo.runCliCommand([`track`, `-p`, `main`]);
       }).to.not.throw();
 
       expectCommits(scene.repo, 'b, a, 1');
@@ -54,7 +54,7 @@ for (const scene of allScenes) {
       scene.repo.checkoutBranch('a');
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `track`, `-p`, `main`]);
+        scene.repo.runCliCommand([`track`, `-p`, `main`]);
       }).to.not.throw();
 
       expectCommits(scene.repo, 'a, 1');
@@ -66,7 +66,7 @@ for (const scene of allScenes) {
       scene.repo.checkoutBranch('b');
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `track`, `-p`, `a`]);
+        scene.repo.runCliCommand([`track`, `-p`, `a`]);
       }).to.not.throw();
 
       expectCommits(scene.repo, 'b, a, 1');
@@ -86,20 +86,20 @@ for (const scene of allScenes) {
       scene.repo.checkoutBranch('a');
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `track`, `-p`, `main`]);
+        scene.repo.runCliCommand([`track`, `-p`, `main`]);
       }).not.to.throw();
 
       scene.repo.createChangeAndAmend('a1', 'a1');
       scene.repo.checkoutBranch('b');
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `track`, `-p`, `a`]);
+        scene.repo.runCliCommand([`track`, `-p`, `a`]);
       }).to.throw();
 
       scene.repo.runGitCommand(['rebase', 'a']);
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `track`, `-p`, `a`]);
+        scene.repo.runCliCommand([`track`, `-p`, `a`]);
       }).to.not.throw();
 
       expectCommits(scene.repo, 'b, a, 1');
@@ -118,7 +118,7 @@ for (const scene of allScenes) {
       scene.repo.checkoutBranch('a');
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `track`, `-f`]);
+        scene.repo.runCliCommand([`track`, `-f`]);
       }).not.to.throw();
 
       expect(() => {
@@ -132,7 +132,7 @@ for (const scene of allScenes) {
       expectCommits(scene.repo, 'b, a, 1');
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `track`, `-f`]);
+        scene.repo.runCliCommand([`track`, `-f`]);
       }).not.to.throw();
 
       expect(() => {

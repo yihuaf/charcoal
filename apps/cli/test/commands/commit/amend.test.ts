@@ -9,7 +9,7 @@ for (const scene of allScenes) {
 
     it('Can amend a commit', () => {
       scene.repo.createChange('2');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `2`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `2`]);
       expectCommits(scene.repo, '2, 1');
 
       scene.repo.runCliCommand([`commit`, `amend`, `-m`, `3`]);
@@ -18,17 +18,17 @@ for (const scene of allScenes) {
 
     it('Can amend if there are no staged changes', () => {
       scene.repo.createChange('2');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
       scene.repo.runCliCommand([`commit`, `amend`, `-m`, `b`]);
       expectCommits(scene.repo, 'b, 1');
     });
 
     it('Automatically restacks upwards', () => {
       scene.repo.createChange('2', '2');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `2`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `2`]);
 
       scene.repo.createChange('3', '3');
-      scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `3`]);
+      scene.repo.runCliCommand([`create`, `b`, `-m`, `3`]);
 
       scene.repo.checkoutBranch('a');
       scene.repo.runCliCommand([`commit`, `amend`, `-m`, `2.5`]);
@@ -42,10 +42,10 @@ for (const scene of allScenes) {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
       scene.repo.createChange(lorem);
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
 
       scene.repo.createChange(['b', lorem].join('\n'));
-      scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `b`]);
+      scene.repo.runCliCommand([`create`, `b`, `-m`, `b`]);
 
       scene.repo.checkoutBranch('a');
       scene.repo.createChange(`Hello world! ${lorem}`);
@@ -68,14 +68,14 @@ for (const scene of allScenes) {
 
     it('Can amend a commit with a multi-word commit message', () => {
       scene.repo.createChange('2');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
       scene.repo.runCliCommand([`commit`, `amend`, `-m`, `a b c`]);
       expectCommits(scene.repo, 'a b c');
     });
 
     it('Can amend without staged changes', () => {
       scene.repo.createChange('2');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
       expectCommits(scene.repo, 'a, 1');
 
       scene.repo.runCliCommand([`commit`, `amend`, `-m`, `b`]);
@@ -86,7 +86,7 @@ for (const scene of allScenes) {
     });
 
     it('Cannot amend an empty commit', () => {
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
       expect(scene.repo.currentBranchName()).to.equal('a');
       expect(() =>
         scene.repo.runCliCommand([`commit`, `amend`, `-m`, `b`])

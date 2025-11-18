@@ -9,10 +9,10 @@ for (const scene of allScenes) {
 
     it('Can fix a leaf stack onto main', () => {
       scene.repo.createChange('2', 'a');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `2`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `2`]);
 
       scene.repo.createChange('3', 'b');
-      scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `3`]);
+      scene.repo.runCliCommand([`create`, `b`, `-m`, `3`]);
 
       scene.repo.runCliCommand([`upstack`, `onto`, `main`]);
       expectCommits(scene.repo, '3, 1');
@@ -20,7 +20,7 @@ for (const scene of allScenes) {
 
     it('Can catch a merge conflict on first rebase', () => {
       scene.repo.createChange('2', 'a');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `2`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `2`]);
 
       scene.repo.checkoutBranch('main');
       scene.repo.createChangeAndCommit('3', 'a');

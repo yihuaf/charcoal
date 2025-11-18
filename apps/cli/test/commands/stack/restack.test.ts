@@ -10,15 +10,15 @@ for (const scene of allScenes) {
 
     it('Can restack a stack of three branches', () => {
       scene.repo.createChange('2', 'a');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `2`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `2`]);
       scene.repo.createChangeAndCommit('2.5', 'a.5');
 
       scene.repo.createChange('3', 'b');
-      scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `3`]);
+      scene.repo.runCliCommand([`create`, `b`, `-m`, `3`]);
       scene.repo.createChangeAndCommit('3.5', 'b.5');
 
       scene.repo.createChange('4', 'c');
-      scene.repo.runCliCommand([`branch`, `create`, `c`, `-m`, `4`]);
+      scene.repo.runCliCommand([`create`, `c`, `-m`, `4`]);
 
       expectCommits(scene.repo, '4, 3.5, 3, 2.5, 2, 1');
 
@@ -38,10 +38,10 @@ for (const scene of allScenes) {
 
     it('Can handle merge conflicts', () => {
       scene.repo.createChange('2');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `2`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `2`]);
 
       scene.repo.createChange('3');
-      scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `3`]);
+      scene.repo.runCliCommand([`create`, `b`, `-m`, `3`]);
 
       scene.repo.checkoutBranch('main');
       scene.repo.createChangeAndCommit('1.5');
@@ -70,10 +70,10 @@ for (const scene of allScenes) {
 
     it('Can restack one specific stack', () => {
       scene.repo.createChange('a', 'a');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
 
       scene.repo.createChange('b', 'b');
-      scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `b`]);
+      scene.repo.runCliCommand([`create`, `b`, `-m`, `b`]);
 
       scene.repo.checkoutBranch('main');
       scene.repo.createChangeAndCommit('1.5', '1.5');

@@ -7,8 +7,8 @@ for (const scene of [new BasicScene()]) {
     configureTest(this, scene);
 
     it("Can run 'bd' shortcut command", () => {
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
-      scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `b`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `b`, `-m`, `b`]);
       expect(() => scene.repo.runCliCommand(['bd'])).to.not.throw(Error);
     });
   });

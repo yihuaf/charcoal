@@ -9,12 +9,12 @@ for (const scene of allScenes) {
 
     it('Can continue an upstack onto with single merge conflict', () => {
       scene.repo.createChange('a');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
 
       scene.repo.checkoutBranch('main');
 
       scene.repo.createChange('b');
-      scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `b`]);
+      scene.repo.runCliCommand([`create`, `b`, `-m`, `b`]);
 
       expect(() =>
         scene.repo.runCliCommand(['upstack', 'onto', 'a'])
@@ -37,15 +37,15 @@ for (const scene of allScenes) {
     it('Can run continue multiple times on an upstack onto with multiple merge conflicts', () => {
       scene.repo.createChange('a', '1');
       scene.repo.createChange('a', '2');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
 
       scene.repo.checkoutBranch('main');
 
       scene.repo.createChange('b', '1');
-      scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `b`]);
+      scene.repo.runCliCommand([`create`, `b`, `-m`, `b`]);
 
       scene.repo.createChange('c', '2');
-      scene.repo.runCliCommand([`branch`, `create`, `c`, `-m`, `c`]);
+      scene.repo.runCliCommand([`create`, `c`, `-m`, `c`]);
 
       scene.repo.checkoutBranch('b');
 

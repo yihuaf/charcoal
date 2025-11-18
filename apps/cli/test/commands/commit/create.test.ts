@@ -8,7 +8,7 @@ for (const scene of allScenes) {
     configureTest(this, scene);
 
     it('Can create a commit', () => {
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
       scene.repo.createChange('2');
       scene.repo.runCliCommand([`commit`, `create`, `-m`, `2`]);
 
@@ -17,7 +17,7 @@ for (const scene of allScenes) {
     });
 
     it('Can create a commit with a multi-word commit message', () => {
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
       scene.repo.createChange('2');
       scene.repo.runCliCommand([`commit`, `create`, `-m`, `a b c`]);
 
@@ -26,7 +26,7 @@ for (const scene of allScenes) {
     });
 
     it('Fails to create a commit if there are no staged changes', () => {
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
 
       expect(() =>
         scene.repo.runCliCommand([`commit`, `create`, `-m`, `a`])
@@ -35,10 +35,10 @@ for (const scene of allScenes) {
 
     it('Automatically restacks upwards', () => {
       scene.repo.createChange('2', '2');
-      scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `2`]);
+      scene.repo.runCliCommand([`create`, `a`, `-m`, `2`]);
 
       scene.repo.createChange('3', '3');
-      scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `3`]);
+      scene.repo.runCliCommand([`create`, `b`, `-m`, `3`]);
 
       scene.repo.checkoutBranch('a');
       scene.repo.createChange('2.5', '2.5');

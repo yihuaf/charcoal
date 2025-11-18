@@ -21,7 +21,7 @@ for (const scene of allScenes) {
       expect(scene.repo.currentBranchName()).to.equal(branchName);
 
       scene.repo.checkoutBranch('main');
-      scene.repo.runCliCommand([`branch`, `delete`, branchName, `-f`]);
+      scene.repo.runCliCommand([`delete`, branchName, `-f`]);
       expectBranches(scene.repo, 'main');
     });
   });
