@@ -4,7 +4,7 @@ import { passthrough } from './passthrough';
 function splitShortcuts(command: string): string[] {
   if (
     command.length === 2 &&
-    !['ds', 'us'].includes(command) // block list two letter noun aliases
+    !['ds', 'us', 'up'].includes(command) // block list two letter noun aliases
   ) {
     return [command[0], command[1]];
   }

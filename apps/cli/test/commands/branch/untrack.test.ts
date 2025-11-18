@@ -23,13 +23,13 @@ for (const scene of allScenes) {
 
       // can't navigate from an untracked branch
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `down`]);
+        scene.repo.runCliCommand([`down`]);
       }).to.throw();
 
       // can't navigate to an untracked branch
       scene.repo.checkoutBranch('a');
       expectCommits(scene.repo, 'a, 1');
-      scene.repo.runCliCommand([`branch`, `up`]);
+      scene.repo.runCliCommand([`up`]);
       expectCommits(scene.repo, 'a, 1');
     });
 
@@ -51,7 +51,7 @@ for (const scene of allScenes) {
       scene.repo.checkoutBranch('c');
       // can't navigate from an untracked branch
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `down`]);
+        scene.repo.runCliCommand([`down`]);
       }).to.throw();
     });
   });

@@ -31,7 +31,7 @@ for (const scene of allScenes) {
       expectCommits(scene.repo, 'a3, a2, a1, b, 1');
 
       // Prove that we have meta now.
-      scene.repo.runCliCommand([`branch`, `down`]);
+      scene.repo.runCliCommand([`down`]);
       expect(scene.repo.currentBranchName()).to.eq('main');
     });
     it('Can track a branch, and then insert a branch before and track both as a stack', () => {
@@ -47,7 +47,7 @@ for (const scene of allScenes) {
       expectCommits(scene.repo, 'b, a, 1');
 
       // Prove that we have meta now.
-      scene.repo.runCliCommand([`branch`, `down`]);
+      scene.repo.runCliCommand([`down`]);
       expect(scene.repo.currentBranchName()).to.eq('main');
 
       scene.repo.runGitCommand([`branch`, `a`, `b~`]);
@@ -60,7 +60,7 @@ for (const scene of allScenes) {
       expectCommits(scene.repo, 'a, 1');
 
       // Prove that we have meta now.
-      scene.repo.runCliCommand([`branch`, `down`]);
+      scene.repo.runCliCommand([`down`]);
       expect(scene.repo.currentBranchName()).to.eq('main');
 
       scene.repo.checkoutBranch('b');
@@ -72,7 +72,7 @@ for (const scene of allScenes) {
       expectCommits(scene.repo, 'b, a, 1');
 
       // Prove that meta is correctly updated.
-      scene.repo.runCliCommand([`branch`, `down`]);
+      scene.repo.runCliCommand([`down`]);
       expect(scene.repo.currentBranchName()).to.eq('a');
     });
     it('Needs a rebase to track a branch that is created and whose parent is amended', () => {
@@ -105,7 +105,7 @@ for (const scene of allScenes) {
       expectCommits(scene.repo, 'b, a, 1');
 
       // Prove that we have meta now.
-      scene.repo.runCliCommand([`branch`, `down`]);
+      scene.repo.runCliCommand([`down`]);
       expect(scene.repo.currentBranchName()).to.eq('a');
     });
 
@@ -122,11 +122,11 @@ for (const scene of allScenes) {
       }).not.to.throw();
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `down`]);
+        scene.repo.runCliCommand([`down`]);
       }).not.to.throw();
       expect(scene.repo.currentBranchName()).to.eq('main');
 
-      scene.repo.runCliCommand([`branch`, `up`]);
+      scene.repo.runCliCommand([`up`]);
       scene.repo.createAndCheckoutBranch('b');
       scene.repo.createChangeAndCommit('b', 'b');
       expectCommits(scene.repo, 'b, a, 1');
@@ -136,7 +136,7 @@ for (const scene of allScenes) {
       }).not.to.throw();
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `down`]);
+        scene.repo.runCliCommand([`down`]);
       }).not.to.throw();
       expect(scene.repo.currentBranchName()).to.eq('a');
     });

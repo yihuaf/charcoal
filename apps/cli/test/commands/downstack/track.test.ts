@@ -19,17 +19,17 @@ for (const scene of allScenes) {
       }).not.to.throw();
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `down`]);
+        scene.repo.runCliCommand([`down`]);
       }).not.to.throw();
       expect(scene.repo.currentBranchName()).to.eq('b');
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `down`]);
+        scene.repo.runCliCommand([`down`]);
       }).not.to.throw();
       expect(scene.repo.currentBranchName()).to.eq('a');
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `down`]);
+        scene.repo.runCliCommand([`down`]);
       }).not.to.throw();
       expect(scene.repo.currentBranchName()).to.eq('main');
     });
@@ -49,17 +49,17 @@ for (const scene of allScenes) {
       }).not.to.throw();
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `up`]);
+        scene.repo.runCliCommand([`up`]);
       }).not.to.throw();
       expect(scene.repo.currentBranchName()).to.eq('a');
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `up`]);
+        scene.repo.runCliCommand([`up`]);
       }).not.to.throw();
       expect(scene.repo.currentBranchName()).to.eq('b');
 
       expect(() => {
-        scene.repo.runCliCommand([`branch`, `up`]);
+        scene.repo.runCliCommand([`up`]);
       }).not.to.throw();
       expect(scene.repo.currentBranchName()).to.eq('c');
     });

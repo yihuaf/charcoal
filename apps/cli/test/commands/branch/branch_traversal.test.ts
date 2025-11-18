@@ -22,7 +22,7 @@ for (const scene of allScenes) {
       scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
       scene.repo.checkoutBranch('main');
 
-      scene.repo.runCliCommand([`branch`, `up`, `--no-interactive`]);
+      scene.repo.runCliCommand([`up`, `--no-interactive`]);
       expect(scene.repo.currentBranchName()).to.equal('a');
     });
 
@@ -32,7 +32,7 @@ for (const scene of allScenes) {
       scene.repo.createChange('b', 'b');
       scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `b`]);
 
-      scene.repo.runCliCommand([`branch`, `down`, `--no-interactive`]);
+      scene.repo.runCliCommand([`down`, `--no-interactive`]);
       expect(scene.repo.currentBranchName()).to.equal('a');
     });
 
@@ -41,7 +41,7 @@ for (const scene of allScenes) {
       scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
       scene.repo.checkoutBranch('a');
 
-      scene.repo.runCliCommand([`branch`, `down`, `--no-interactive`]);
+      scene.repo.runCliCommand([`down`, `--no-interactive`]);
       expect(scene.repo.currentBranchName()).to.equal('main');
     });
 
@@ -49,14 +49,14 @@ for (const scene of allScenes) {
       setupStack(scene);
       scene.repo.checkoutBranch('a');
 
-      scene.repo.runCliCommand([`branch`, `up`, `2`, `--no-interactive`]);
+      scene.repo.runCliCommand([`up`, `2`, `--no-interactive`]);
       expect(scene.repo.currentBranchName()).to.equal('c');
     });
 
     it('Can move to prev branch with numSteps = 2', () => {
       setupStack(scene);
 
-      scene.repo.runCliCommand([`branch`, `down`, `2`, `--no-interactive`]);
+      scene.repo.runCliCommand([`down`, `2`, `--no-interactive`]);
       expect(scene.repo.currentBranchName()).to.equal('a');
     });
 
@@ -81,7 +81,7 @@ for (const scene of allScenes) {
       scene.repo.createChange('b', 'b');
       scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `b`]);
 
-      scene.repo.runCliCommand([`branch`, `down`, `--no-interactive`]);
+      scene.repo.runCliCommand([`down`, `--no-interactive`]);
       expect(scene.repo.currentBranchName()).to.equal('a');
     });
 
@@ -90,7 +90,7 @@ for (const scene of allScenes) {
       scene.repo.runCliCommand([`branch`, `create`, `a`, `-m`, `a`]);
       scene.repo.checkoutBranch('main');
 
-      scene.repo.runCliCommand([`branch`, `up`, `--no-interactive`]);
+      scene.repo.runCliCommand([`up`, `--no-interactive`]);
       expect(scene.repo.currentBranchName()).to.equal('a');
     });
   });

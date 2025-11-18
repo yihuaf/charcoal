@@ -17,9 +17,9 @@ for (const scene of allScenes) {
 
       expectCommits(scene.repo, 'b, a2, a, 1');
 
-      scene.repo.runCliCommand([`branch`, `down`]);
+      scene.repo.runCliCommand([`down`]);
       scene.repo.runCliCommand([`branch`, `squash`, `-n`]);
-      scene.repo.runCliCommand([`branch`, `up`]);
+      scene.repo.runCliCommand([`up`]);
 
       expectCommits(scene.repo, 'b, a, 1');
     });

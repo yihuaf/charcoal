@@ -23,10 +23,10 @@ for (const scene of allScenes) {
 
       expectCommits(scene.repo, 'b, a, 1');
 
-      scene.repo.runCliCommand([`branch`, `down`, `--no-interactive`]);
+      scene.repo.runCliCommand([`down`, `--no-interactive`]);
       expect(scene.repo.currentBranchName()).to.equal('a1');
 
-      scene.repo.runCliCommand([`branch`, `down`, `--no-interactive`]);
+      scene.repo.runCliCommand([`down`, `--no-interactive`]);
       expect(scene.repo.currentBranchName()).to.equal('main');
     });
     it("Renaming a branch to its own name doesn't break", () => {

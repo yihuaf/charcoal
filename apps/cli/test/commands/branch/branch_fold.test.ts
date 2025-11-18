@@ -17,7 +17,7 @@ for (const scene of allScenes) {
         scene.repo.runCliCommand([`branch`, `fold`, `--keep`])
       ).to.throw();
 
-      scene.repo.runCliCommand([`branch`, `down`]);
+      scene.repo.runCliCommand([`down`]);
 
       expect(() => scene.repo.runCliCommand([`branch`, `fold`])).to.throw();
       expect(() =>
@@ -32,7 +32,7 @@ for (const scene of allScenes) {
       scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `b`]);
       scene.repo.createChange('c', 'c');
       scene.repo.runCliCommand([`branch`, `create`, `c`, `-m`, `c`]);
-      scene.repo.runCliCommand([`branch`, `down`, `2`]);
+      scene.repo.runCliCommand([`down`, `2`]);
       scene.repo.createChange('d', 'd');
       scene.repo.runCliCommand([`branch`, `create`, `d`, `-m`, `d`]);
       scene.repo.checkoutBranch('b');
@@ -41,7 +41,7 @@ for (const scene of allScenes) {
       expectBranches(scene.repo, 'a, c, d, main');
       expectCommits(scene.repo, 'b, a, 1');
 
-      scene.repo.runCliCommand([`branch`, `down`]);
+      scene.repo.runCliCommand([`down`]);
       expectCommits(scene.repo, '1');
 
       scene.repo.checkoutBranch('c');
@@ -58,7 +58,7 @@ for (const scene of allScenes) {
       scene.repo.runCliCommand([`branch`, `create`, `b`, `-m`, `b`]);
       scene.repo.createChange('c', 'c');
       scene.repo.runCliCommand([`branch`, `create`, `c`, `-m`, `c`]);
-      scene.repo.runCliCommand([`branch`, `down`, `2`]);
+      scene.repo.runCliCommand([`down`, `2`]);
       scene.repo.createChange('d', 'd');
       scene.repo.runCliCommand([`branch`, `create`, `d`, `-m`, `d`]);
       scene.repo.checkoutBranch('b');
@@ -67,7 +67,7 @@ for (const scene of allScenes) {
       expectBranches(scene.repo, 'b, c, d, main');
       expectCommits(scene.repo, 'b, a, 1');
 
-      scene.repo.runCliCommand([`branch`, `down`]);
+      scene.repo.runCliCommand([`down`]);
       expectCommits(scene.repo, '1');
 
       scene.repo.checkoutBranch('c');
