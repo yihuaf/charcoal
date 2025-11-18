@@ -12,7 +12,6 @@ for (const scene of allScenes) {
 
       scene.repo.createChangeAndCommit('2', '2');
       scene.repo.runCliCommand([
-        `branch`,
         `create`,
         branchName,
         `-m`,

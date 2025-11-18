@@ -40,7 +40,7 @@ for (const scene of allScenes) {
       scene.repo.runCliCommand([`rename`, `a`]);
 
       expect(() => scene.repo.runCliCommand([`ls`])).not.to.throw();
-      expect(() => scene.repo.runCliCommand([`bu`])).not.to.throw();
+      expect(() => scene.repo.runCliCommand([`up`])).not.to.throw();
       expectCommits(scene.repo, 'b, a, 1');
     });
   });

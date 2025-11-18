@@ -43,7 +43,7 @@ for (const scene of [new TrailingProdScene()]) {
       newRepo.checkoutBranch('b');
       expect(newRepo.currentBranchName()).to.eq('b');
 
-      newRepo.runCliCommand([`bd`]);
+      newRepo.runCliCommand([`down`]);
       expect(newRepo.currentBranchName()).to.eq('a');
 
       fs.emptyDirSync(tmpDir);

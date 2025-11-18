@@ -52,7 +52,7 @@ for (const scene of allScenes) {
 
       scene.repo.createChange('b', 'b');
       scene.repo.runCliCommand([`create`, `b`, `-m`, `b`]);
-      scene.repo.runCliCommand(['bd']);
+      scene.repo.runCliCommand(['down']);
 
       scene.repo.createChange('c', 'c');
       scene.repo.runCliCommand([
