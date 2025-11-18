@@ -176,7 +176,7 @@ export class GitRepo {
 
   trackBranch(branch: string, parentBranch?: string): void {
     return this.runCliCommand(
-      ['branch', 'track']
+      ['track']
         .concat(parentBranch ? ['--parent', parentBranch] : [])
         .concat([branch])
     );

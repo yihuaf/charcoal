@@ -4,10 +4,10 @@ import { configureTest } from '../../lib/utils/configure_test';
 import { expectCommits } from '../../lib/utils/expect_commits';
 
 for (const scene of allScenes) {
-  describe(`(${scene}): continue upstack onto`, function () {
+  describe(`(${scene}): continue move`, function () {
     configureTest(this, scene);
 
-    it('Can continue an upstack onto with single merge conflict', () => {
+    it('Can continue a move with single merge conflict', () => {
       scene.repo.createChange('a');
       scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
 
@@ -17,7 +17,7 @@ for (const scene of allScenes) {
       scene.repo.runCliCommand([`create`, `b`, `-m`, `b`]);
 
       expect(() =>
-        scene.repo.runCliCommand(['upstack', 'onto', 'a'])
+        scene.repo.runCliCommand(['move', 'a'])
       ).to.throw();
       expect(scene.repo.rebaseInProgress()).to.be.true;
 
@@ -25,7 +25,7 @@ for (const scene of allScenes) {
       scene.repo.markMergeConflictsAsResolved();
       const output = scene.repo.runCliCommandAndGetOutput(['continue']);
 
-      // Continue should finish the work that stack fix started, not only
+      // Continue should finish the work that move started, not only
       // completing the rebase but also re-checking out the original
       // branch.
       expect(scene.repo.currentBranchName()).to.equal('b');
@@ -34,7 +34,7 @@ for (const scene of allScenes) {
       output.includes('Successfully moved');
     });
 
-    it('Can run continue multiple times on an upstack onto with multiple merge conflicts', () => {
+    it('Can run continue multiple times on a move with multiple merge conflicts', () => {
       scene.repo.createChange('a', '1');
       scene.repo.createChange('a', '2');
       scene.repo.runCliCommand([`create`, `a`, `-m`, `a`]);
@@ -50,7 +50,7 @@ for (const scene of allScenes) {
       scene.repo.checkoutBranch('b');
 
       expect(() =>
-        scene.repo.runCliCommand(['upstack', 'onto', 'a'])
+        scene.repo.runCliCommand(['move', 'a'])
       ).to.throw();
       expect(scene.repo.rebaseInProgress()).to.be.true;
 
@@ -64,14 +64,14 @@ for (const scene of allScenes) {
       scene.repo.markMergeConflictsAsResolved();
       scene.repo.runCliCommand(['continue']);
 
-      // Continue should finish the work that stack fix started, not only
+      // Continue should finish the work that move started, not only
       // completing the rebase but also re-checking out the original
       // branch.
       expect(scene.repo.currentBranchName()).to.equal('b');
       expectCommits(scene.repo, 'b, a');
       expect(scene.repo.rebaseInProgress()).to.be.false;
 
-      // Ensure that the upstack worked too (verify integrity of entire stack).
+      // Ensure that the move worked too (verify integrity of entire stack).
       scene.repo.checkoutBranch('c');
       expectCommits(scene.repo, 'c, b, a');
     });

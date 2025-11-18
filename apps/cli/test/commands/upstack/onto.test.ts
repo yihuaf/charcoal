@@ -4,7 +4,7 @@ import { configureTest } from '../../lib/utils/configure_test';
 import { expectCommits } from '../../lib/utils/expect_commits';
 
 for (const scene of allScenes) {
-  describe(`(${scene}): upstack onto`, function () {
+  describe(`(${scene}): move`, function () {
     configureTest(this, scene);
 
     it('Can fix a leaf stack onto main', () => {
@@ -14,7 +14,7 @@ for (const scene of allScenes) {
       scene.repo.createChange('3', 'b');
       scene.repo.runCliCommand([`create`, `b`, `-m`, `3`]);
 
-      scene.repo.runCliCommand([`upstack`, `onto`, `main`]);
+      scene.repo.runCliCommand([`move`, `main`]);
       expectCommits(scene.repo, '3, 1');
     });
 
@@ -27,7 +27,7 @@ for (const scene of allScenes) {
 
       scene.repo.checkoutBranch('a');
       expect(() => {
-        scene.repo.runCliCommand([`upstack`, `onto`, `main`]);
+        scene.repo.runCliCommand([`move`, `main`]);
       }).to.throw();
       expect(scene.repo.rebaseInProgress()).to.be.true;
     });
